@@ -4,7 +4,8 @@ import asyncio
 import os
 if hasattr(asyncio, 'WindowsSelectorEventLoopPolicy'):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-
+from dotenv import load_dotenv
+load_dotenv()
 CHANNEL_ID = os.getenv("CHANNEL_ID")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 TWITTER_BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN")
