@@ -15,8 +15,6 @@ TWITTER_BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN")
 # Twitter settings - list of accounts to monitor
 TWITTER_ACCOUNTS = [
     "WatcherGuru",
-    "Ashcryptoreal",
-    "realDonaldTrump"
 ]
 
 intents = discord.Intents.default()
