@@ -24,6 +24,9 @@ twitter_client = tweepy.Client(bearer_token=TWITTER_BEARER_TOKEN)
 # Dictionary to store last tweet ID for each account
 last_tweet_ids = {account: None for account in TWITTER_ACCOUNTS}
 
+# Add this after the last_tweet_ids dictionary
+posted_tweets = set()  # Store all posted tweet IDs
+
 def create_tweet_embed(tweet, username, user_data):
     embed = discord.Embed(
         description=tweet.text,
@@ -42,7 +45,7 @@ def create_tweet_embed(tweet, username, user_data):
     return embed
 
 async def check_tweets():
-    global last_tweet_ids
+    global last_tweet_ids, posted_tweets
     await client.wait_until_ready()
     channel = client.get_channel(CHANNEL_ID)
 
@@ -63,7 +66,8 @@ async def check_tweets():
                 if tweets.data:
                     new_tweets = []
                     for tweet in tweets.data:
-                        if last_tweet_ids[username] is None or tweet.id > last_tweet_ids[username]:
+                        # Check if tweet is new AND hasn't been posted before
+                        if (last_tweet_ids[username] is None or tweet.id > last_tweet_ids[username]) and tweet.id not in posted_tweets:
                             new_tweets.append(tweet)
 
                     if new_tweets:
@@ -72,6 +76,7 @@ async def check_tweets():
                             embed = create_tweet_embed(tweet, username, user)
                             await channel.send(embed=embed)
                             last_tweet_ids[username] = tweet.id
+                            posted_tweets.add(tweet.id)  # Add tweet ID to posted set
 
             except Exception as e:
                 print(f"Error checking tweets for {username}: {e}")
