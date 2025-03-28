@@ -1,16 +1,14 @@
 import discord
 import tweepy
 import asyncio
+import os
 if hasattr(asyncio, 'WindowsSelectorEventLoopPolicy'):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
+CHANNEL_ID = os.getenv("CHANNEL_ID")
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+TWITTER_BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN")
 
-# Discord bot token
-DISCORD_TOKEN = 'MTM1NDk2NTEyMTkzNTM0Nzg4NA.G4SboC.J_Ze0RRy3sHe1f-bEemobj70_vMg4d4KxOdCbo'
-CHANNEL_ID = 1354962858030665963  # e.g., 123456789012345678
-
-# Twitter API credentials
-TWITTER_BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAABUvwQEAAAAAzxuuj%2F1Ez0ZHC69Rx0CpPGVGlW8%3DjbWxj4mOFoDTacrmnMWXFAXUZeUWu4hh9YjnGPiWBiH7aNv3xD'
 
 # Twitter settings
 TWITTER_USERNAME = 'WatcherGuru'  # Without @
