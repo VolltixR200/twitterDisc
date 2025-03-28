@@ -78,7 +78,7 @@ async def check_tweets():
             except Exception as e:
                 print(f"Error checking tweets for {username}: {e}")
 
-        await asyncio.sleep(60)  # check every minute
+        await asyncio.sleep(300)  # check every 5 minutes (5 * 60 seconds)
 
 @client.event
 async def on_ready():
